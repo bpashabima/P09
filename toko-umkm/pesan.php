@@ -9,6 +9,7 @@ $input = [
     "nama"        => "",
     "whatsapp"    => "",
     "alamat"      => "",
+    "metode"      => "Ambil di toko",
     "kode_produk" => (string) filter_input(INPUT_GET, "produk"),
     "jumlah"      => "1",
     "catatan"     => "",
@@ -16,17 +17,17 @@ $input = [
 $kesalahan = [];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // 2a. Tangkap dan rapikan (trim) semua isian
     $input = [
         "nama"        => trim((string) filter_input(INPUT_POST, "nama")),
         "whatsapp"    => trim((string) filter_input(INPUT_POST, "whatsapp")),
         "alamat"      => trim((string) filter_input(INPUT_POST, "alamat")),
+        "metode"      => (string) filter_input(INPUT_POST, "metode"),
         "kode_produk" => (string) filter_input(INPUT_POST, "kode_produk"),
         "jumlah"      => trim((string) filter_input(INPUT_POST, "jumlah")),
         "catatan"     => trim((string) filter_input(INPUT_POST, "catatan")),
     ];
 
-    $kesalahan = validasiPesanan($input, $daftarProduk);
+    $kesalahan = validasiPesanan($input, $daftarProduk, $daftarMetode);
 
     if (count($kesalahan) === 0) {
         $produk = cariProdukByKode($daftarProduk, $input["kode_produk"]);
@@ -39,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             "nama"     => $input["nama"],
             "whatsapp" => $input["whatsapp"],
             "alamat"   => $input["alamat"],
+            "metode"   => $input["metode"],
             "produk"   => $produk["nama"],
             "harga"    => $produk["harga"],
             "jumlah"   => $jumlah,
@@ -112,6 +114,22 @@ $berhasil = ($status === "berhasil" && is_string($kodeBaru));
                 <textarea id="alamat" name="alamat" rows="2" placeholder="Nama jalan, nomor rumah, kelurahan, kecamatan, kota"><?= e($input["alamat"]) ?></textarea>
                 <?php if (isset($kesalahan["alamat"])): ?>
                     <small class="galat"><?= e($kesalahan["alamat"]) ?></small>
+                <?php endif; ?>
+            </div>
+
+            <div class="isian">
+                <label>Metode pengambilan</label>
+                <div class="grup-radio">
+                    <?php foreach ($daftarMetode as $metode): ?>
+                        <label class="label-radio">
+                            <input type="radio" name="metode" value="<?= e($metode) ?>"
+                                   <?= $input["metode"] === $metode ? "checked" : "" ?>>
+                            <?= e($metode) ?>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+                <?php if (isset($kesalahan["metode"])): ?>
+                    <small class="galat"><?= e($kesalahan["metode"]) ?></small>
                 <?php endif; ?>
             </div>
 

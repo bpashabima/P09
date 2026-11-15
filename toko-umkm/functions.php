@@ -109,6 +109,10 @@ function validasiPesanan(array $input, array $daftarProduk): array
     if (mb_strlen($input["catatan"]) > 200) {
         $kesalahan["catatan"] = "Catatan maksimal 200 karakter.";
     }
+    $daftarMetode = ["Ambil di toko", "Kirim kurir"];
+    if (!in_array($input["metode"] ?? "", $daftarMetode, true)) {
+        $kesalahan["metode"] = "Pilih metode pengambilan yang tersedia.";
+    }
     
     return $kesalahan;
 }

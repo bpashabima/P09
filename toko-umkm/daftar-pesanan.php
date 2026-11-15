@@ -51,6 +51,7 @@ $pesananTampil = array_reverse($semuaPesanan);
                             <th>Waktu</th>
                             <th>Nama</th>
                             <th>Alamat</th>
+                            <th>Metode</th>
                             <th>Produk</th>
                             <th>Jumlah</th>
                             <th>Total</th>
@@ -64,6 +65,7 @@ $pesananTampil = array_reverse($semuaPesanan);
                                 <td><?= e($pesanan["waktu"]) ?></td>
                                 <td><?= e($pesanan["nama"]) ?></td>
                                 <td><?= e($pesanan["alamat"] ?? "-") ?></td>
+                                <td><?= e($pesanan["metode"] ?? "-") ?></td>
                                 <td><?= e($pesanan["produk"]) ?></td>
                                 <td><?= (int) $pesanan["jumlah"] ?></td>
                                 <td><?= formatRupiah((int) $pesanan["total"]) ?></td>

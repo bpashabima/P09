@@ -9,6 +9,7 @@ $namaToko = "UMKM Sekar Jagad Solo";
 // Lokasi file penyimpanan pesanan sementara
 const FILE_PESANAN = __DIR__ . "/data/pesanan.json";
 $daftarKategori = ["Semua", "Makanan", "Minuman", "Fashion"];
+$daftarMetode = ["Ambil di toko", "Kirim kurir"];
 $daftarProduk = [
     ["kode" => "P01", "nama" => "Keripik Tempe Original",
     "kategori" => "Makanan", "harga" => 15000, "stok" => 40],
