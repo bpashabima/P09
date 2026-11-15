@@ -143,3 +143,18 @@ function buatKodePesanan(int $nomorUrut): string
 {
     return sprintf("PSN-%04d", $nomorUrut);
 }
+function urutkanProduk(array $produk, string $urut): array
+{
+    $daftarUrut = ["termurah", "termahal"];
+    if (!in_array($urut, $daftarUrut, true)) {
+        return $produk;
+    }
+
+    usort($produk, function (array $a, array $b) use ($urut): int {
+        return $urut === "termurah"
+            ? $a["harga"] <=> $b["harga"]
+            : $b["harga"] <=> $a["harga"];
+    });
+
+    return $produk;
+}

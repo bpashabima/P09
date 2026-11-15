@@ -6,14 +6,19 @@ require __DIR__ . "/functions.php";
 
 $kategoriDipilih = $_GET["kategori"] ?? "Semua";
 $kataKunci = trim($_GET["q"] ?? "");
+$urutDipilih = $_GET["urut"] ?? "";
 
 if (!in_array($kategoriDipilih, $daftarKategori, true)) {
     $kategoriDipilih = "Semua";
 }
 
-// Filter kategori lalu terapkan pencarian nama produk dari functions.php
+if (!in_array($urutDipilih, ["termurah", "termahal"], true)) {
+    $urutDipilih = "";
+}
+
 $produkTampil = filterKategori($daftarProduk, $kategoriDipilih);
 $produkTampil = cariProduk($produkTampil, $kataKunci);
+$produkTampil = urutkanProduk($produkTampil, $urutDipilih);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -27,14 +32,12 @@ $produkTampil = cariProduk($produkTampil, $kataKunci);
     <header class="kepala">
         <h1><?= e($namaToko) ?></h1>
 
-        <!-- 1. Navigasi Halaman (Diperbarui ke daftar-pesanan.php) -->
         <nav class="nav-utama">
             <a href="index.php" class="aktif">Katalog</a>
             <a href="pesan.php">Pesan</a>
             <a href="daftar-pesanan.php">Daftar Pesanan</a>
         </nav>
 
-        <!-- 2. Form Pencarian & Dropdown Kategori -->
         <form method="GET" action="index.php" class="form-cari">
             <input type="text" name="q" placeholder="Cari nama produk..." value="<?= e($kataKunci) ?>">
             <select name="kategori">
@@ -44,10 +47,14 @@ $produkTampil = cariProduk($produkTampil, $kataKunci);
                     </option>
                 <?php endforeach; ?>
             </select>
+            <select name="urut">
+                <option value="">Urutkan</option>
+                <option value="termurah" <?= $urutDipilih === "termurah" ? "selected" : "" ?>>Termurah</option>
+                <option value="termahal" <?= $urutDipilih === "termahal" ? "selected" : "" ?>>Termahal</option>
+            </select>
             <button type="submit" class="btn">Cari</button>
         </form>
 
-        <!-- 3. Keterangan Hasil Pencarian -->
         <?php if ($kataKunci !== ""): ?>
             <p class="info-cari">Hasil pencarian "<?= e($kataKunci) ?>": <?= count($produkTampil) ?> produk.</p>
         <?php endif; ?>
@@ -66,7 +73,6 @@ $produkTampil = cariProduk($produkTampil, $kataKunci);
                 <p class="kategori"><?= e($produk["kategori"]) ?> &middot; <?= e($produk["kode"]) ?></p>
                 <p class="harga"><?= formatRupiah($produk["harga"]) ?></p>
 
-                <!-- 4. Tombol Pesan menuju pesan.php dengan parameter produk -->
                 <?php if ($produk["stok"] > 0): ?>
                     <a href="pesan.php?produk=<?= urlencode($produk["kode"]) ?>" class="btn btn-pesan">Pesan</a>
                 <?php else: ?>
