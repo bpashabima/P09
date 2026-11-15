@@ -1,36 +1,33 @@
 <?php
 declare(strict_types=1);
 
-// pesan.php - Form Pemesanan dengan Pola PRG
 
 require __DIR__ . "/data.php";
 require __DIR__ . "/functions.php";
 
-// 1. Nilai awal form[cite: 20]
 $input = [
     "nama"        => "",
     "whatsapp"    => "",
+    "alamat"      => "",
     "kode_produk" => (string) filter_input(INPUT_GET, "produk"),
     "jumlah"      => "1",
     "catatan"     => "",
 ];
 $kesalahan = [];
 
-// 2. Proses hanya jika form dikirim dengan POST[cite: 20]
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // 2a. Tangkap dan rapikan (trim) semua isian
     $input = [
         "nama"        => trim((string) filter_input(INPUT_POST, "nama")),
         "whatsapp"    => trim((string) filter_input(INPUT_POST, "whatsapp")),
+        "alamat"      => trim((string) filter_input(INPUT_POST, "alamat")),
         "kode_produk" => (string) filter_input(INPUT_POST, "kode_produk"),
         "jumlah"      => trim((string) filter_input(INPUT_POST, "jumlah")),
         "catatan"     => trim((string) filter_input(INPUT_POST, "catatan")),
     ];
 
-    // 2b. Validasi[cite: 20]
     $kesalahan = validasiPesanan($input, $daftarProduk);
 
-    // 2c. Lolos validasi: simpan, lalu REDIRECT (pola Post/Redirect/Get)[cite: 24]
     if (count($kesalahan) === 0) {
         $produk = cariProdukByKode($daftarProduk, $input["kode_produk"]);
         $jumlah = (int) $input["jumlah"];
@@ -41,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             "waktu"    => date("Y-m-d H:i"),
             "nama"     => $input["nama"],
             "whatsapp" => $input["whatsapp"],
+            "alamat"   => $input["alamat"],
             "produk"   => $produk["nama"],
             "harga"    => $produk["harga"],
             "jumlah"   => $jumlah,
@@ -53,7 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-// 3. Setelah redirect: baca status dari URL (GET)[cite: 24]
 $status   = filter_input(INPUT_GET, "status");
 $kodeBaru = filter_input(INPUT_GET, "kode", FILTER_VALIDATE_REGEXP, [
     "options" => ["regexp" => "/^PSN-[0-9]{4}$/"],
@@ -111,6 +108,14 @@ $berhasil = ($status === "berhasil" && is_string($kodeBaru));
             </div>
 
             <div class="isian">
+                <label for="alamat">Alamat pengiriman</label>
+                <textarea id="alamat" name="alamat" rows="2" placeholder="Nama jalan, nomor rumah, kelurahan, kecamatan, kota"><?= e($input["alamat"]) ?></textarea>
+                <?php if (isset($kesalahan["alamat"])): ?>
+                    <small class="galat"><?= e($kesalahan["alamat"]) ?></small>
+                <?php endif; ?>
+            </div>
+
+            <div class="isian">
                 <label for="kode_produk">Produk</label>
                 <select id="kode_produk" name="kode_produk">
                     <option value="">-- pilih produk --</option>
@@ -153,4 +158,4 @@ $berhasil = ($status === "berhasil" && is_string($kodeBaru));
         <p>&copy; <?= date("Y") ?> Pemrograman Web — Informatika TSU</p>
     </footer>
 </body>
-</html> 
+</html>

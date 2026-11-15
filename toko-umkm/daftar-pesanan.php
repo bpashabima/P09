@@ -1,22 +1,18 @@
 <?php
 declare(strict_types=1);
 
-// daftar-pesanan.php - Menampilkan daftar pesanan dari file JSON
 
 require __DIR__ . "/data.php";
 require __DIR__ . "/functions.php";
 
-// Baca semua pesanan dari file JSON
 $semuaPesanan = bacaPesanan(FILE_PESANAN);
 
-// Hitung jumlah pesanan dan total keseluruhan omzet
 $jumlahPesanan = count($semuaPesanan);
 $totalOmzet = 0;
 foreach ($semuaPesanan as $pesanan) {
     $totalOmzet += (int) ($pesanan["total"] ?? 0);
 }
 
-// Balik urutan array agar pesanan terbaru berada di baris paling atas
 $pesananTampil = array_reverse($semuaPesanan);
 ?>
 <!DOCTYPE html>
@@ -54,6 +50,7 @@ $pesananTampil = array_reverse($semuaPesanan);
                             <th>Kode</th>
                             <th>Waktu</th>
                             <th>Nama</th>
+                            <th>Alamat</th>
                             <th>Produk</th>
                             <th>Jumlah</th>
                             <th>Total</th>
@@ -66,6 +63,7 @@ $pesananTampil = array_reverse($semuaPesanan);
                                 <td><?= e($pesanan["kode"]) ?></td>
                                 <td><?= e($pesanan["waktu"]) ?></td>
                                 <td><?= e($pesanan["nama"]) ?></td>
+                                <td><?= e($pesanan["alamat"] ?? "-") ?></td>
                                 <td><?= e($pesanan["produk"]) ?></td>
                                 <td><?= (int) $pesanan["jumlah"] ?></td>
                                 <td><?= formatRupiah((int) $pesanan["total"]) ?></td>
