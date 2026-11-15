@@ -1,0 +1,295 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f9;
+    color: #26265a;
+    padding: 20px;
+}
+.kepala {
+    max-width: 960px;
+    margin: 0 auto 16px;
+}
+.kepala h1 {
+    font-size: 1.5rem;
+}
+
+/* Navigasi Tab Atas */
+.nav-utama {
+    display: flex;
+    gap: 18px;
+    margin: 8px 0 16px;
+}
+.nav-utama a {
+    text-decoration: none;
+    color: #6b6b8a;
+    font-size: 0.95rem;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+}
+.nav-utama a.aktif {
+    color: #26265a;
+    font-weight: 600;
+    border-bottom-color: #d9822b;
+}
+
+/* Baris Pencarian & Dropdown */
+.form-cari {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.form-cari input[type="text"] {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+.form-cari select {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background-color: #ffffff;
+    font-size: 0.95rem;
+    color: #26265a;
+}
+.info-cari {
+    font-size: 0.9rem;
+    color: #6b6b8a;
+}
+
+/* Tombol Umum (Cari & Pesan) */
+.btn {
+    display: inline-block;
+    padding: 8px 18px;
+    background-color: #26265a;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+}
+.btn:hover {
+    background-color: #1b1b42;
+}
+.btn-pesan {
+    margin-top: 12px;
+}
+.btn-habis {
+    margin-top: 12px;
+    background-color: #cbd5e1;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+/* Grid & Kartu Produk */
+.grid {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+.kartu {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 18px;
+}
+.kartu h2 {
+    font-size: 1.05rem;
+    margin-top: 10px;
+}
+.kategori {
+    font-size: 0.85rem;
+    color: #6b6b8a;
+    margin-top: 2px;
+}
+.harga {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #d9822b;
+    margin-top: 8px;
+}
+.badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+.badge--aman { background-color: #2e8b57; }
+.badge--menipis { background-color: #f0a33a; }
+.badge--habis { background-color: #c0392b; }
+
+.kosong,
+.kaki {
+    max-width: 960px;
+    margin: 24px auto 0;
+    font-size: 0.85rem;
+    color: #6b6b8a;
+}
+
+/* --- TAMBAHAN UNTUK HALAMAN PESAN --- */
+
+/* Tata Letak Kontainer */
+.wadah {
+    max-width: 960px;
+    margin: 0 auto;
+}
+.sempit {
+    max-width: 600px;
+}
+.wadah h2 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+    color: #26265a;
+}
+
+/* Kotak Peringatan (Alert) */
+.alert {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+.alert--gagal {
+    background-color: #fde8e8;
+    color: #9b1c1c;
+    border: 1px solid #f8b4b4;
+}
+.alert--sukses {
+    background-color: #def7ec;
+    color: #03543f;
+    border: 1px solid #84e1bc;
+}
+
+/* Kotak Form Putih */
+.form {
+    background-color: #ffffff;
+    padding: 24px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+/* Grup Input */
+.isian {
+    margin-bottom: 16px;
+}
+.isian label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #26265a;
+    margin-bottom: 6px;
+}
+
+/* Input, Select, Textarea */
+.isian input,
+.isian select,
+.isian textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background-color: #ffffff;
+    color: #26265a;
+}
+.isian input:focus,
+.isian select:focus,
+.isian textarea:focus {
+    outline: none;
+    border-color: #26265a;
+}
+
+.galat {
+    display: block;
+    color: #d93025;
+    font-size: 0.8rem;
+    margin-top: 6px;
+}
+
+.tombol {
+    background-color: #26265a;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 8px;
+}
+.tombol:hover {
+    background-color: #1b1b42;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 18px;
+    margin: 8px 0 16px;
+}
+.nav-menu a {
+    text-decoration: none;
+    color: #6b6b8a;
+    font-size: 0.95rem;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+}
+.nav-menu a.aktif {
+    color: #26265a;
+    font-weight: 600;
+    border-bottom-color: #d9822b;
+}
+
+/* --- TAMBAHAN UNTUK HALAMAN DAFTAR PESANAN --- */
+
+.ringkasan-pesanan {
+    font-size: 0.9rem;
+    color: #6b6b8a;
+    margin-top: -10px;
+    margin-bottom: 16px;
+}
+
+.bungkus-tabel {
+    overflow-x: auto;
+    background-color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+}
+
+.tabel-pesanan {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.tabel-pesanan th {
+    background-color: #26265a;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 12px 14px;
+    border: 1px solid #383875;
+}
+
+.tabel-pesanan td {
+    padding: 12px 14px;
+    border: 1px solid #e5e7eb;
+    color: #26265a;
+}
+
+.tabel-pesanan tbody tr:hover {
+    background-color: #f9fafb;
+}
