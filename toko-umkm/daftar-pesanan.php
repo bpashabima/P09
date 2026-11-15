@@ -1,19 +1,20 @@
 <?php
 declare(strict_types=1);
 
-
 require __DIR__ . "/data.php";
 require __DIR__ . "/functions.php";
 
+$kataKunci = trim($_GET["q"] ?? "");
 $semuaPesanan = bacaPesanan(FILE_PESANAN);
+$pesananTersaring = cariPesanan($semuaPesanan, $kataKunci);
 
-$jumlahPesanan = count($semuaPesanan);
+$jumlahPesanan = count($pesananTersaring);
 $totalOmzet = 0;
-foreach ($semuaPesanan as $pesanan) {
+foreach ($pesananTersaring as $pesanan) {
     $totalOmzet += (int) ($pesanan["total"] ?? 0);
 }
 
-$pesananTampil = array_reverse($semuaPesanan);
+$pesananTampil = array_reverse($pesananTersaring);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -31,6 +32,15 @@ $pesananTampil = array_reverse($semuaPesanan);
             <a href="pesan.php">Pesan</a>
             <a href="daftar-pesanan.php" class="aktif">Daftar Pesanan</a>
         </nav>
+
+        <form method="GET" action="daftar-pesanan.php" class="form-cari">
+            <input type="text" name="q" placeholder="Cari nama pemesan..." value="<?= e($kataKunci) ?>">
+            <button type="submit" class="btn">Cari</button>
+        </form>
+
+        <?php if ($kataKunci !== ""): ?>
+            <p class="info-cari">Hasil pencarian "<?= e($kataKunci) ?>": <?= $jumlahPesanan ?> pesanan.</p>
+        <?php endif; ?>
     </header>
 
     <main class="wadah">
@@ -41,7 +51,7 @@ $pesananTampil = array_reverse($semuaPesanan);
         </p>
 
         <?php if ($jumlahPesanan === 0): ?>
-            <p class="kosong">Belum ada pesanan yang masuk.</p>
+            <p class="kosong"><?= $kataKunci !== "" ? "Pesanan tidak ditemukan." : "Belum ada pesanan yang masuk." ?></p>
         <?php else: ?>
             <div class="bungkus-tabel">
                 <table class="tabel-pesanan">

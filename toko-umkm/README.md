@@ -18,6 +18,6 @@
 ## Cara Menjalankan
 
 **Opsi 1: Menggunakan Web Server (XAMPP / Laragon)**
-1. Letakkan seluruh file (`index.php`, `data.php`, `functions.php`, `style.css`) ke dalam sebuah folder (misal: `katalog-umkm`) atau download langsung zip p07.
+1. Letakkan seluruh file (`index.php`, `data.php`, `functions.php`, `style.css`) ke dalam sebuah folder (misal: `katalog-umkm`) atau download langsung zip p09.
 2. Pindahkan folder tersebut ke dalam folder `www` (untuk Laragon).
 3. klik menu "profil" untuk membuka index.php dan menu "daftar menu" lalu klik p07 / katalog-umkm (loading dan akan menampilkan output)

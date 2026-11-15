@@ -158,3 +158,13 @@ function urutkanProduk(array $produk, string $urut): array
 
     return $produk;
 }
+function cariPesanan(array $pesanan, string $kataKunci): array
+{
+    if ($kataKunci === "") {
+        return $pesanan;
+    }
+    return array_filter(
+        $pesanan,
+        fn(array $p): bool => stripos($p["nama"] ?? "", $kataKunci) !== false
+    );
+}
